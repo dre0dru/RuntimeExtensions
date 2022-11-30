@@ -1,0 +1,16 @@
+{
+    "name": "Dre0Dru.ObjectsFilter",
+    "rootNamespace": "Dre0Dru.ObjectsFilter",
+    "references": [
+        "GUID:858f01292afdc66489a4648c01d9ca1e"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
