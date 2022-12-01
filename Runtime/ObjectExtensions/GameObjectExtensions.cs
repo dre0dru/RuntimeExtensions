@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.Pool;
+using Object = UnityEngine.Object;
 
 namespace Dre0Dru.ObjectExtensions
 {
@@ -15,6 +16,19 @@ namespace Dre0Dru.ObjectExtensions
             }
 
             return component;
+        }
+        
+        public static bool RemoveComponent<T>(this GameObject gameObject)
+            where T : Component
+        {
+            if (gameObject.TryGetComponent<T>(out var result))
+            {
+                Object.Destroy(result);
+
+                return true;
+            }
+
+            return false;
         }
 
         public static void ExecuteDownwards<TComponent>(this GameObject root, Action<TComponent> action,

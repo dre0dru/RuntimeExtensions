@@ -6,21 +6,16 @@ namespace Dre0Dru.ObjectExtensions
     public static class ComponentExtensions
     {
         public static T AddComponent<T>(this Component component)
-            where T : Component
-        {
-            return component.gameObject.AddComponent<T>();
-        }
+            where T : Component =>
+            component.gameObject.AddComponent<T>();
 
         public static T GetOrAddComponent<T>(this Component component)
-            where T : Component
-        {
-            if (!component.TryGetComponent<T>(out var result))
-            {
-                result = component.AddComponent<T>();
-            }
+            where T : Component =>
+            component.gameObject.GetOrAddComponent<T>();
 
-            return result;
-        }
+        public static bool RemoveComponent<T>(this Component component)
+            where T : Component =>
+            component.gameObject.RemoveComponent<T>();
 
         public static void ExecuteDownwards<TComponent>(this Component root, Action<TComponent> action,
             bool includeInactive = false)
