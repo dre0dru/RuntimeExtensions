@@ -23,8 +23,21 @@ namespace Dre0Dru.ObjectExtensions
         {
             if (gameObject.TryGetComponent<T>(out var result))
             {
-                Object.Destroy(result);
+                result.Remove();
 
+                return true;
+            }
+
+            return false;
+        }
+
+        public static bool RemoveComponentCasted<T>(this GameObject gameObject)
+        {
+            if (gameObject.TryGetComponent<T>(out var destroyStrategy) && 
+                destroyStrategy is Component component)
+            {
+                component.Remove();
+                
                 return true;
             }
 
