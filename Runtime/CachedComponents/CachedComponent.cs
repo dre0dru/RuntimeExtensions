@@ -14,5 +14,10 @@ namespace Dre0Dru.CachedComponents
         {
             _source = source;
         }
+        
+        public static implicit operator TComponent(CachedComponent<TComponent> cachedComponent)
+        {
+            return cachedComponent.Component;
+        }
     }
 }
