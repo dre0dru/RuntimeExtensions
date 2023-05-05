@@ -1,6 +1,7 @@
 ﻿namespace Dre0Dru.DynamicContext
 {
     //TODO contexts merge: merge two diff contexts into one
+    //TODO generic typed context which allows to search by subtype/implementation
     public interface IDynamicContext<in TKey>
     {
         void AddValue<TValue>(TKey key, TValue value)

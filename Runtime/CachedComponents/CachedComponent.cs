@@ -14,6 +14,10 @@ namespace Dre0Dru.CachedComponents
         {
             _source = source;
         }
+
+        public CachedComponent(Component source) : this(source.gameObject)
+        {
+        }
         
         public static implicit operator TComponent(CachedComponent<TComponent> cachedComponent)
         {

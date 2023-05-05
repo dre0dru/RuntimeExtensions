@@ -7,5 +7,9 @@ namespace Dre0Dru.CachedComponents
         public CachedTransform(GameObject source) : base(source)
         {
         }
+        
+        public CachedTransform(Component source) : base(source)
+        {
+        }
     }
 }
