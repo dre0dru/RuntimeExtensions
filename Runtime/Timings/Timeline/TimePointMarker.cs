@@ -1,7 +1,6 @@
-﻿using UnityEngine;
-using UnityEngine.Timeline;
+﻿using UnityEngine.Timeline;
 
-namespace Dre0Dru.Timeline
+namespace Dre0Dru.Timings.Timeline
 {
     public class TimePointMarker : Marker
     {
@@ -9,7 +8,6 @@ namespace Dre0Dru.Timeline
     
     public abstract class TimePointMarker<TData> : Marker
     {
-        [SerializeField]
         public TData Data;
     }
 }

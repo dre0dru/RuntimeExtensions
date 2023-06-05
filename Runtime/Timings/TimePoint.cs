@@ -26,6 +26,11 @@ namespace Dre0Dru.Timings
             _time = time;
         }
 
+        public TimePoint(double time)
+        {
+            _time = (float) time;
+        }
+
         public bool IsBefore(float time)
         {
             return time < _time;
@@ -34,6 +39,16 @@ namespace Dre0Dru.Timings
         public bool IsPast(float time)
         {
             return !IsBefore(time);
+        }
+        
+        public static implicit operator TimePoint(float time)
+        {
+            return new TimePoint(time);
+        }
+        
+        public static implicit operator TimePoint(double time)
+        {
+            return new TimePoint(time);
         }
     }
     

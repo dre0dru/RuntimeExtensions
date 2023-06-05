@@ -20,9 +20,17 @@ namespace Dre0Dru.Timings
         [SerializeField]
         private Vector2 _range;
 
-        public TimeRange(Vector2 range)
+        public TimeRange(Vector2 minMax)
         {
-            _range = range;
+            _range = minMax;
+        }
+        
+        public TimeRange(float min, float max) : this(new Vector2(min, max))
+        {
+        }
+        
+        public TimeRange(double min, double max) : this(new Vector2((float)min, (float)max))
+        {
         }
 
         public bool IsInside(float time)
@@ -34,6 +42,21 @@ namespace Dre0Dru.Timings
         {
             return !IsInside(time);
         }
+
+        public static implicit operator TimeRange(Vector2 minMax)
+        {
+            return new TimeRange(minMax);
+        } 
+        
+        public static implicit operator TimeRange((float min, float max) minMax)
+        {
+            return new TimeRange(minMax.min, minMax.max);
+        } 
+        
+        public static implicit operator TimeRange((double min, double max) minMax)
+        {
+            return new TimeRange(minMax.min, minMax.max);
+        } 
     }
 
     [Serializable]

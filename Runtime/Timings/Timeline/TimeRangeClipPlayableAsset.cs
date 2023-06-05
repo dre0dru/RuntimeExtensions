@@ -2,7 +2,7 @@
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
 
-namespace Dre0Dru.Timeline
+namespace Dre0Dru.Timings.Timeline
 {
     public class TimeRangeClipPlayableAsset: PlayableAsset, ITimelineClipAsset
     {
