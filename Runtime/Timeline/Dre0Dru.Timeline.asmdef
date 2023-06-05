@@ -1,0 +1,24 @@
+{
+    "name": "Dre0Dru.Timeline",
+    "rootNamespace": "Dre0Dru.Timeline",
+    "references": [
+        "GUID:f06555f75b070af458a003d92f9efb00"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "UNITY_TIMELINE"
+    ],
+    "versionDefines": [
+        {
+            "name": "com.unity.timeline",
+            "expression": "",
+            "define": "UNITY_TIMELINE"
+        }
+    ],
+    "noEngineReferences": false
+}
