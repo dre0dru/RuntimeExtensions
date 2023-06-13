@@ -9,9 +9,10 @@ namespace Dre0Dru.Timings
         bool IsOutside(float time);
     }
 
-    public interface ITimeRange<out TData> : ITimeRange
+    public interface ITimeRange<TData> : ITimeRange
     {
-        TData Data { get; }
+        bool IsInside(float time, out TData data);
+        bool IsOutside(float time, out TData data);
     }
 
     [Serializable]
@@ -60,7 +61,7 @@ namespace Dre0Dru.Timings
     }
 
     [Serializable]
-    public struct TimeRangeComposite : ITimeRange
+    public class TimeRangeComposite : ITimeRange
     {
         [SerializeField]
         private TimeRange[] _ranges;
@@ -98,8 +99,6 @@ namespace Dre0Dru.Timings
         [SerializeField]
         private TData _data;
 
-        public TData Data => _data;
-
         public TimeRange(TimeRange timeRange, TData data)
         {
             _timeRange = timeRange;
@@ -115,33 +114,81 @@ namespace Dre0Dru.Timings
         {
             return _timeRange.IsOutside(time);
         }
+
+        public bool IsInside(float time, out TData data)
+        {
+            data = _data;
+            return IsInside(time);
+        }
+
+        public bool IsOutside(float time, out TData data)
+        {
+            data = _data;
+            return IsOutside(time);
+        }
     }
 
     [Serializable]
-    public struct TimeRangeComposite<TData> : ITimeRange<TData>
+    public class TimeRangeComposite<TData> : ITimeRange<TData>
     {
-        [SerializeField]
-        private TimeRangeComposite _timeRangeComposite;
+        [Serializable]
+        public class WithDefault : TimeRangeComposite<TData>
+        {
+            [SerializeField]
+            private TData _default;
+
+            public TData Default => _default;
+
+            public WithDefault(TimeRange<TData>[] ranges, TData @default) : base(ranges)
+            {
+                _default = @default;
+            }
+        }
         
         [SerializeField]
-        private TData _data;
+        private TimeRange<TData>[] _ranges;
 
-        public TData Data => _data;
-
-        public TimeRangeComposite(TimeRangeComposite timeRangeComposite, TData data)
+        public TimeRangeComposite(TimeRange<TData>[] ranges)
         {
-            _timeRangeComposite = timeRangeComposite;
-            _data = data;
+            _ranges = ranges;
         }
 
         public bool IsInside(float time)
         {
-            return _timeRangeComposite.IsInside(time);
+            foreach (var range in _ranges)
+            {
+                if (range.IsInside(time))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public bool IsOutside(float time)
         {
-            return _timeRangeComposite.IsOutside(time);
+            return !IsInside(time);
+        }
+
+        public bool IsInside(float time, out TData data)
+        {
+            data = default;
+            
+            foreach (var range in _ranges)
+            {
+                if (range.IsInside(time, out data))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool IsOutside(float time, out TData data)
+        {
+            return !IsInside(time, out data);
         }
     }
 }
