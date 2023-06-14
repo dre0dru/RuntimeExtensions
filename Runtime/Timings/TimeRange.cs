@@ -137,11 +137,31 @@ namespace Dre0Dru.Timings
             [SerializeField]
             private TData _default;
 
-            public TData Default => _default;
-
             public WithDefault(TimeRange<TData>[] ranges, TData @default) : base(ranges)
             {
                 _default = @default;
+            }
+
+            public override bool IsInside(float time, out TData data)
+            {
+                if (base.IsInside(time, out data))
+                {
+                    return true;
+                }
+                
+                data = _default;
+                return false;
+            }
+
+            public override bool IsOutside(float time, out TData data)
+            {
+                if (base.IsOutside(time, out data))
+                {
+                    return true;
+                }
+                
+                data = _default;
+                return false;
             }
         }
         
@@ -171,7 +191,7 @@ namespace Dre0Dru.Timings
             return !IsInside(time);
         }
 
-        public bool IsInside(float time, out TData data)
+        public virtual bool IsInside(float time, out TData data)
         {
             data = default;
             
@@ -186,7 +206,7 @@ namespace Dre0Dru.Timings
             return false;
         }
 
-        public bool IsOutside(float time, out TData data)
+        public virtual bool IsOutside(float time, out TData data)
         {
             return !IsInside(time, out data);
         }

@@ -92,8 +92,6 @@ namespace Dre0Dru.Timings
         [SerializeField]
         private TData _data;
 
-        public TData Data => _data;
-
         public TimePoint(TimePoint timePoint, TData data)
         {
             _timePoint = timePoint;
