@@ -8,4 +8,9 @@ namespace Dre0Dru.Timings.Timeline
     {
         
     }
+    
+    public class TimeRangeTrack<TData>: TrackAsset
+    {
+        public TData Data;
+    }
 }
