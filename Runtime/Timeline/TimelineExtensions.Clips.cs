@@ -30,6 +30,13 @@ namespace Dre0Dru.Timeline
             return track.GetClips().Where(clip => clip.asset is TPlayableAsset).Select(clip =>
                 (clip, clip.asset as TPlayableAsset));
         }
+        
+        public static IEnumerable<(TimelineClip timelineClip, TPlayableAsset playableAsset)> GetClips<TPlayableAsset>(
+            this IEnumerable<TrackAsset> tracks)
+            where TPlayableAsset : PlayableAsset
+        {
+            return tracks.SelectMany(track => track.GetClips<TPlayableAsset>());
+        }
 
         public static (double normalizedStart, double normalizedEnd) ToNormalizedRelativeTo(
             this TimelineClip timelineClip, TimelineClip relativeTo)

@@ -8,12 +8,6 @@ namespace Dre0Dru.Timeline
 {
     public static partial class TimelineExtensions
     {
-        public static IEnumerable<TMarker> GetMarkers<TMarker>(this TrackAsset trackAsset)
-            where TMarker : class, IMarker
-        {
-            return trackAsset.GetMarkers().OfType<TMarker>();
-        }
-
         public static GameObject ResolveSource(this ControlPlayableAsset controlPlayableAsset,
             PlayableDirector playableDirector)
         {

@@ -7,12 +7,16 @@ namespace Dre0Dru.Timings
     {
         bool IsInside(float time);
         bool IsOutside(float time);
+        bool HasEntered(float previousTime, float time);
+        bool HasExited(float previousTime, float time);
     }
 
     public interface ITimeRange<TData> : ITimeRange
     {
         bool IsInside(float time, out TData data);
         bool IsOutside(float time, out TData data);
+        bool HasEntered(float previousTime, float time, out TData data);
+        bool HasExited(float previousTime, float time, out TData data);
     }
 
     [Serializable]
@@ -42,6 +46,16 @@ namespace Dre0Dru.Timings
         public bool IsOutside(float time)
         {
             return !IsInside(time);
+        }
+
+        public bool HasEntered(float previousTime, float time)
+        {
+            return IsOutside(previousTime) && IsInside(time);
+        }
+
+        public bool HasExited(float previousTime, float time)
+        {
+            return IsInside(previousTime) && IsOutside(time);
         }
 
         public static implicit operator TimeRange(Vector2 minMax)
@@ -88,6 +102,32 @@ namespace Dre0Dru.Timings
         {
             return !IsInside(time);
         }
+
+        public bool HasEntered(float previousTime, float time)
+        {
+            foreach (var range in _ranges)
+            {
+                if (range.HasEntered(previousTime, time))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool HasExited(float previousTime, float time)
+        {
+            foreach (var range in _ranges)
+            {
+                if (range.HasExited(previousTime, time))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 
     [Serializable]
@@ -115,6 +155,16 @@ namespace Dre0Dru.Timings
             return _timeRange.IsOutside(time);
         }
 
+        public bool HasEntered(float previousTime, float time)
+        {
+            return _timeRange.HasEntered(previousTime, time);
+        }
+
+        public bool HasExited(float previousTime, float time)
+        {
+            return _timeRange.HasExited(previousTime, time);
+        }
+
         public bool IsInside(float time, out TData data)
         {
             data = _data;
@@ -125,6 +175,18 @@ namespace Dre0Dru.Timings
         {
             data = _data;
             return IsOutside(time);
+        }
+
+        public bool HasEntered(float previousTime, float time, out TData data)
+        {
+            data = _data;
+            return HasEntered(previousTime, time);
+        }
+
+        public bool HasExited(float previousTime, float time, out TData data)
+        {
+            data = _data;
+            return HasExited(previousTime, time);
         }
     }
 
@@ -191,6 +253,32 @@ namespace Dre0Dru.Timings
             return !IsInside(time);
         }
 
+        public bool HasEntered(float previousTime, float time)
+        {
+            foreach (var range in _ranges)
+            {
+                if (range.HasEntered(previousTime, time))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool HasExited(float previousTime, float time)
+        {
+            foreach (var range in _ranges)
+            {
+                if (range.HasExited(previousTime, time))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public virtual bool IsInside(float time, out TData data)
         {
             data = default;
@@ -209,6 +297,36 @@ namespace Dre0Dru.Timings
         public virtual bool IsOutside(float time, out TData data)
         {
             return !IsInside(time, out data);
+        }
+
+        public bool HasEntered(float previousTime, float time, out TData data)
+        {
+            data = default;
+            
+            foreach (var range in _ranges)
+            {
+                if (range.HasEntered(previousTime, time, out data))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool HasExited(float previousTime, float time, out TData data)
+        {
+            data = default;
+            
+            foreach (var range in _ranges)
+            {
+                if (range.HasExited(previousTime, time, out data))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

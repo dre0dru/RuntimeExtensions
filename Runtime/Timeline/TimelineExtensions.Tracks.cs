@@ -30,5 +30,11 @@ namespace Dre0Dru.Timeline
         {
             return timelineAsset.GetOutputTracks().OfType<TTrack>();
         }
+
+        public static IEnumerable<TTrack> IgnoreMuted<TTrack>(this IEnumerable<TTrack> tracks)
+            where TTrack : TrackAsset
+        {
+            return tracks.Where(track => !track.muted);
+        }
     }
 }

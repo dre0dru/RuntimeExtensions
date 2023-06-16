@@ -7,12 +7,14 @@ namespace Dre0Dru.Timings
     {
         bool IsBefore(float time);
         bool IsPast(float time);
+        bool IsTriggered(float previousTime, float time);
     }
 
     public interface ITimePoint<TData> : ITimePoint
     {
         bool IsBefore(float time, out TData data);
         bool IsPast(float time, out TData data);
+        bool IsTriggered(float previousTime, float time, out TData data);
     }
 
     [Serializable]
@@ -40,6 +42,11 @@ namespace Dre0Dru.Timings
         public bool IsPast(float time)
         {
             return !IsBefore(time);
+        }
+
+        public bool IsTriggered(float previousTime, float time)
+        {
+            return IsPast(time) && IsBefore(previousTime);
         }
 
         public static implicit operator TimePoint(float time)
@@ -81,6 +88,19 @@ namespace Dre0Dru.Timings
         {
             return !IsBefore(time);
         }
+
+        public bool IsTriggered(float previousTime, float time)
+        {
+            foreach (var point in _points)
+            {
+                if (point.IsTriggered(previousTime, time))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 
     [Serializable]
@@ -108,6 +128,11 @@ namespace Dre0Dru.Timings
             return _timePoint.IsPast(time);
         }
 
+        public bool IsTriggered(float previousTime, float time)
+        {
+            return _timePoint.IsTriggered(previousTime, time);
+        }
+
         public bool IsBefore(float time, out TData data)
         {
             data = _data;
@@ -118,6 +143,12 @@ namespace Dre0Dru.Timings
         {
             data = _data;
             return IsPast(time);
+        }
+
+        public bool IsTriggered(float previousTime, float time, out TData data)
+        {
+            data = _data;
+            return IsTriggered(previousTime, time);
         }
     }
 
@@ -164,6 +195,19 @@ namespace Dre0Dru.Timings
             return !IsBefore(time);
         }
 
+        public bool IsTriggered(float previousTime, float time)
+        {
+            foreach (var point in _points)
+            {
+                if (point.IsTriggered(previousTime, time))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public bool IsBefore(float time, out TData data)
         {
             data = default;
@@ -182,6 +226,21 @@ namespace Dre0Dru.Timings
         public bool IsPast(float time, out TData data)
         {
             return !IsBefore(time, out data);
+        }
+
+        public bool IsTriggered(float previousTime, float time, out TData data)
+        {
+            data = default;
+            
+            foreach (var point in _points)
+            {
+                if (point.IsTriggered(previousTime, time, out data))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 
