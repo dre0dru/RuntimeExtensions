@@ -61,5 +61,24 @@ namespace Dre0Dru.Timeline
         {
             return (time - relativeTo.start) / relativeTo.duration;
         }
+        
+        public static (double normalizedStart, double normalizedEnd) ToNormalizedByTotalDuration(
+            this TimelineClip timelineClip, float totalDuration)
+        {
+            return (timelineClip.NormalizedStartByTotalDuration(totalDuration), 
+                timelineClip.NormalizedEndByTotalDuration(totalDuration));
+        }
+        
+        public static double NormalizedStartByTotalDuration(
+            this TimelineClip timelineClip, float totalDuration)
+        {
+            return timelineClip.start / totalDuration;
+        }
+        
+        public static double NormalizedEndByTotalDuration(
+            this TimelineClip timelineClip, float totalDuration)
+        {
+            return timelineClip.end / totalDuration;
+        }
     }
 }

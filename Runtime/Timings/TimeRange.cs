@@ -9,6 +9,7 @@ namespace Dre0Dru.Timings
         bool IsOutside(float time);
         bool HasEntered(float previousTime, float time);
         bool HasExited(float previousTime, float time);
+        float Evaluate(float time);
     }
 
     public interface ITimeRange<TData> : ITimeRange
@@ -17,6 +18,7 @@ namespace Dre0Dru.Timings
         bool IsOutside(float time, out TData data);
         bool HasEntered(float previousTime, float time, out TData data);
         bool HasExited(float previousTime, float time, out TData data);
+        float Evaluate(float time, out TData data);
     }
 
     [Serializable]
@@ -56,6 +58,11 @@ namespace Dre0Dru.Timings
         public bool HasExited(float previousTime, float time)
         {
             return IsInside(previousTime) && IsOutside(time);
+        }
+
+        public float Evaluate(float time)
+        {
+            return Mathf.InverseLerp(_range.x, _range.y, time);
         }
 
         public static implicit operator TimeRange(Vector2 minMax)
@@ -128,6 +135,19 @@ namespace Dre0Dru.Timings
 
             return false;
         }
+
+        public float Evaluate(float time)
+        {
+            foreach (var range in _ranges)
+            {
+                if (range.IsInside(time))
+                {
+                    return range.Evaluate(time);
+                }
+            }
+
+            return 0;
+        }
     }
 
     [Serializable]
@@ -165,6 +185,11 @@ namespace Dre0Dru.Timings
             return _timeRange.HasExited(previousTime, time);
         }
 
+        public float Evaluate(float time)
+        {
+            return _timeRange.Evaluate(time);
+        }
+
         public bool IsInside(float time, out TData data)
         {
             data = _data;
@@ -187,6 +212,12 @@ namespace Dre0Dru.Timings
         {
             data = _data;
             return HasExited(previousTime, time);
+        }
+
+        public float Evaluate(float time, out TData data)
+        {
+            data = _data;
+            return Evaluate(time);
         }
     }
 
@@ -279,6 +310,19 @@ namespace Dre0Dru.Timings
             return false;
         }
 
+        public float Evaluate(float time)
+        {
+            foreach (var range in _ranges)
+            {
+                if (range.IsInside(time))
+                {
+                    return range.Evaluate(time);
+                }
+            }
+
+            return 0;
+        }
+
         public virtual bool IsInside(float time, out TData data)
         {
             data = default;
@@ -327,6 +371,21 @@ namespace Dre0Dru.Timings
             }
 
             return false;
+        }
+
+        public float Evaluate(float time, out TData data)
+        {
+            data = default;
+            
+            foreach (var range in _ranges)
+            {
+                if (range.IsInside(time))
+                {
+                    return range.Evaluate(time, out data);
+                }
+            }
+
+            return 0;
         }
     }
 }
