@@ -1,0 +1,17 @@
+{
+    "name": "Dre0Dru.RigidbodyPhysics.Filters",
+    "rootNamespace": "Dre0Dru.RigidbodyPhysics.Filters",
+    "references": [
+        "GUID:1e301fb159d577149927c903093aec2d",
+        "GUID:90ceae27f7ab7f244a8d74632cfbc0e6"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

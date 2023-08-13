@@ -2,6 +2,7 @@
 {
     //TODO contexts merge: merge two diff contexts into one
     //TODO generic typed context which allows to search by subtype/implementation
+    //TODO keyless/typed context
     public interface IDynamicContext<in TKey>
     {
         void AddValue<TValue>(TKey key, TValue value)

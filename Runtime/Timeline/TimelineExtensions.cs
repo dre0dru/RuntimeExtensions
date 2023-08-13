@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
@@ -26,6 +27,36 @@ namespace Dre0Dru.Timeline
             where TComponent : Component
         {
             return controlPlayableAsset.ResolveSource(playableDirector).TryGetComponent<TComponent>(out component);
+        }
+
+        public static T GetPlayableBehaviour<T>(this Playable playable)
+            where T : class, IPlayableBehaviour
+        {
+            var handle = playable.GetHandle();
+            
+            var method = typeof(PlayableHandle).GetMethod("GetObject", BindingFlags.Instance | BindingFlags.NonPublic);
+            var generic = method.MakeGenericMethod(typeof(T));
+
+            return generic.Invoke(handle, null) as T;
+        }
+
+        public static bool TryGetPlayableInputOfType<T>(this Playable playable, out Playable playableInput)
+            where T : class, IPlayableBehaviour
+        {
+            playableInput = default;
+            
+            for (int i = 0; i < playable.GetInputCount(); i++)
+            {
+                var input = playable.GetInput(i);
+
+                if (input.GetPlayableType() == typeof(T))
+                {
+                    playableInput = input;
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
