@@ -5,23 +5,23 @@ namespace Dre0Dru.RigidbodyPhysics
 {
     public class PhysicsTriggerEvents : MonoBehaviour
     {
-        public event Action<Collider> TriggerEnter;
-        public event Action<Collider> TriggerStay;
-        public event Action<Collider> TriggerExit;
+        public event Action<Collider> TriggerEntered;
+        public event Action<Collider> TriggerStayed;
+        public event Action<Collider> TriggerExited;
         
         protected virtual void OnTriggerEnter(Collider other)
         {
-            TriggerEnter?.Invoke(other);
+            TriggerEntered?.Invoke(other);
         }
 
         protected virtual void OnTriggerStay(Collider other)
         {
-            TriggerStay?.Invoke(other);
+            TriggerStayed?.Invoke(other);
         }
 
         protected virtual void OnTriggerExit(Collider other)
         {
-            TriggerExit?.Invoke(other);
+            TriggerExited?.Invoke(other);
         }
     }
     
@@ -32,13 +32,13 @@ namespace Dre0Dru.RigidbodyPhysics
         
         public TData Data => _data;
         
-        public event Action<ColliderData<TData>> TriggerEnter;
-        public event Action<ColliderData<TData>> TriggerStay;
-        public event Action<ColliderData<TData>> TriggerExit;
+        public event Action<ColliderData<TData>> TriggerEntered;
+        public event Action<ColliderData<TData>> TriggerStayed;
+        public event Action<ColliderData<TData>> TriggerExited;
         
         protected virtual void OnTriggerEnter(Collider other)
         {
-            TriggerEnter?.Invoke(new ColliderData<TData>()
+            TriggerEntered?.Invoke(new ColliderData<TData>()
             {
                 Collider = other,
                 Data = _data
@@ -47,7 +47,7 @@ namespace Dre0Dru.RigidbodyPhysics
 
         protected virtual void OnTriggerStay(Collider other)
         {
-            TriggerStay?.Invoke(new ColliderData<TData>()
+            TriggerStayed?.Invoke(new ColliderData<TData>()
             {
                 Collider = other,
                 Data = _data
@@ -56,7 +56,7 @@ namespace Dre0Dru.RigidbodyPhysics
 
         protected virtual void OnTriggerExit(Collider other)
         {
-            TriggerExit?.Invoke(new ColliderData<TData>()
+            TriggerExited?.Invoke(new ColliderData<TData>()
             {
                 Collider = other,
                 Data = _data

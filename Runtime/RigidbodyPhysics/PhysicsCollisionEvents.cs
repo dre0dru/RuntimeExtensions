@@ -5,23 +5,23 @@ namespace Dre0Dru.RigidbodyPhysics
 {
     public class PhysicsCollisionEvents : MonoBehaviour
     {
-        public event Action<Collision> CollisionEnter;
-        public event Action<Collision> CollisionStay;
-        public event Action<Collision> CollisionExit;
+        public event Action<Collision> CollisionEntered;
+        public event Action<Collision> CollisionStayed;
+        public event Action<Collision> CollisionExited;
         
         protected virtual void OnCollisionEnter(Collision other)
         {
-            CollisionEnter?.Invoke(other);
+            CollisionEntered?.Invoke(other);
         }
 
         protected virtual void OnCollisionStay(Collision other)
         {
-            CollisionStay?.Invoke(other);
+            CollisionStayed?.Invoke(other);
         }
 
         protected virtual void OnCollisionExit(Collision other)
         {
-            CollisionExit?.Invoke(other);
+            CollisionExited?.Invoke(other);
         }
     }
     
@@ -32,13 +32,13 @@ namespace Dre0Dru.RigidbodyPhysics
 
         public TData Data => _data;
         
-        public event Action<CollisionData<TData>> CollisionEnter;
-        public event Action<CollisionData<TData>> CollisionStay;
-        public event Action<CollisionData<TData>> CollisionExit;
+        public event Action<CollisionData<TData>> CollisionEntered;
+        public event Action<CollisionData<TData>> CollisionStayed;
+        public event Action<CollisionData<TData>> CollisionExited;
 
         protected virtual void OnCollisionEnter(Collision other)
         {
-            CollisionEnter?.Invoke(new CollisionData<TData>()
+            CollisionEntered?.Invoke(new CollisionData<TData>()
             {
                 Collision = other,
                 Data = _data
@@ -47,7 +47,7 @@ namespace Dre0Dru.RigidbodyPhysics
 
         protected virtual void OnCollisionStay(Collision other)
         {
-            CollisionStay?.Invoke(new CollisionData<TData>()
+            CollisionStayed?.Invoke(new CollisionData<TData>()
             {
                 Collision = other,
                 Data = _data
@@ -56,7 +56,7 @@ namespace Dre0Dru.RigidbodyPhysics
 
         protected virtual void OnCollisionExit(Collision other)
         {
-            CollisionExit?.Invoke(new CollisionData<TData>()
+            CollisionExited?.Invoke(new CollisionData<TData>()
             {
                 Collision = other,
                 Data = _data
