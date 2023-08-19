@@ -31,6 +31,29 @@ namespace Dre0Dru.ObjectExtensions
             return false;
         }
 
+        public static bool TryGetComponentInParent<TComponent>(this GameObject gameObject, out TComponent component, bool includeInactive = false)
+            where TComponent : Component
+        {
+            component = gameObject.GetComponentInParent<TComponent>(includeInactive);
+            return component != null;
+        }
+        
+        public static bool TryGetComponentInChildren<TComponent>(this GameObject gameObject, out TComponent component, bool includeInactive = false)
+            where TComponent : Component
+        {
+            component = gameObject.GetComponentInChildren<TComponent>(includeInactive);
+            return component != null;
+        }
+
+        public static bool TryFindComponent<TComponent>(this GameObject gameObject, out TComponent component,
+            bool includeInactive = false)
+            where TComponent : Component
+        {
+            return gameObject.TryGetComponent<TComponent>(out component) ||
+                   gameObject.TryGetComponentInChildren<TComponent>(out component, includeInactive) ||
+                   gameObject.TryGetComponentInParent<TComponent>(out component, includeInactive);
+        }
+
         public static bool RemoveSingle<T>(this GameObject gameObject)
             where T : class
         {

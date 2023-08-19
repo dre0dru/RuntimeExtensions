@@ -14,6 +14,19 @@ namespace Dre0Dru.ObjectExtensions
             where TComponent : Component =>
             component.gameObject.GetOrAddComponent<TComponent>();
 
+        public static bool TryGetComponentInParent<TComponent>(this Component rootComponent, out TComponent component, bool includeInactive = false)
+            where TComponent : Component =>
+            rootComponent.gameObject.TryGetComponentInParent<TComponent>(out component, includeInactive);
+
+        public static bool TryGetComponentInChildren<TComponent>(this Component rootComponent, out TComponent component, bool includeInactive = false)
+            where TComponent : Component =>
+            rootComponent.gameObject.TryGetComponentInChildren<TComponent>(out component, includeInactive);
+
+        public static bool TryFindComponent<TComponent>(this Component rootComponent, out TComponent component,
+            bool includeInactive = false)
+            where TComponent : Component =>
+            rootComponent.gameObject.TryFindComponent<TComponent>(out component, includeInactive);
+
         public static bool RemoveComponent<TComponent>(this Component component)
             where TComponent : Component =>
             component.gameObject.RemoveComponent<TComponent>();
