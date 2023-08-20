@@ -5,7 +5,7 @@ namespace Dre0Dru.FSM
     public static class FsmExtensions
     {
         public static bool TryEnterStateIfNotCurrent<TState>(this IStateMachine<TState> stateMachine, TState state)
-            where TState : class, IState
+            where TState : class, IState<TState>
         {
             if (stateMachine.CurrentState == state)
             {
@@ -16,7 +16,7 @@ namespace Dre0Dru.FSM
         }
 
         public static bool TryEnterStates<TState>(this IStateMachine<TState> stateMachine, IEnumerable<TState> states, out TState enteredState)
-            where TState : class, IState
+            where TState : class, IState<TState>
         {
             enteredState = default;
             
@@ -33,7 +33,7 @@ namespace Dre0Dru.FSM
         }
         
         public static bool TryEnterStatesIfNotCurrent<TState>(this IStateMachine<TState> stateMachine, IEnumerable<TState> states, out TState enteredState)
-            where TState : class, IState
+            where TState : class, IState<TState>
         {
             enteredState = default;
             

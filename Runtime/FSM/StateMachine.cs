@@ -5,7 +5,7 @@ namespace Dre0Dru.FSM
 {
     [Serializable]
     public class StateMachine<TState> : IStateMachine<TState>
-        where TState : class, IState
+        where TState : IState<TState>
     {
         [SerializeField]
         private TState _currentState;
@@ -16,8 +16,8 @@ namespace Dre0Dru.FSM
         {
             ThrowIfNull(state);
 
-            return (_currentState == null || _currentState.CanExitState(state, this)) &&
-                   state.CanEnterState(_currentState, this);
+            return (_currentState == null || _currentState.CanExitState(state)) &&
+                   state.CanEnterState(_currentState);
         }
 
         public virtual bool TryEnterState(TState state)
@@ -38,10 +38,10 @@ namespace Dre0Dru.FSM
             ThrowIfNull(state);
 
             var previousState = _currentState;
-            previousState?.OnStateExited(state, this);
+            previousState?.OnStateExited(state);
 
             _currentState = state;
-            _currentState.OnStateEntered(previousState, this);
+            _currentState.OnStateEntered(previousState);
         }
 
         private void ThrowIfNull(TState state)
@@ -51,5 +51,11 @@ namespace Dre0Dru.FSM
                 throw new ArgumentNullException(nameof(state));
             }
         }
+    }
+
+    [Serializable]
+    public class StateMachine : StateMachine<IState>
+    {
+        
     }
 }

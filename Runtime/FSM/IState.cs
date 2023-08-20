@@ -1,17 +1,19 @@
 ﻿namespace Dre0Dru.FSM
 {
-    public interface IState
+    public interface IState<in TState>
+        where TState : IState<TState>
     {
-        bool CanEnterState<TState>(TState from, IStateMachine<TState> stateMachine)
-            where TState : class, IState;
+        bool CanEnterState(TState from);
 
-        bool CanExitState<TState>(TState to, IStateMachine<TState> stateMachine)
-            where TState : class, IState;
+        bool CanExitState(TState to);
 
-        void OnStateEntered<TState>(TState from, IStateMachine<TState> stateMachine)
-            where TState : class, IState;
+        void OnStateEntered(TState from);
 
-        void OnStateExited<TState>(TState to, IStateMachine<TState> stateMachine)
-            where TState : class, IState;
+        void OnStateExited(TState to);
+    }
+
+    public interface IState : IState<IState>
+    {
+        
     }
 }
