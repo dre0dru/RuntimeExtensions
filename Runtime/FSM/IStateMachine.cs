@@ -5,7 +5,6 @@ using UnityEngine;
 namespace Dre0Dru.FSM
 {
     public interface IStateMachine<TState>
-        where TState : class, IState
     {
         TState CurrentState { get; }
 
