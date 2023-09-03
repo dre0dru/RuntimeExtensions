@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 namespace Dre0Dru.Timings
@@ -20,7 +20,6 @@ namespace Dre0Dru.Timings
     [Serializable]
     public struct TimePoint : ITimePoint
     {
-        [Range(0.0f, 1.0f)]
         [SerializeField]
         private float _time;
 
