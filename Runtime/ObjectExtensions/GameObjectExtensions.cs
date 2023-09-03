@@ -1,10 +1,10 @@
 using System;
 using UnityEngine;
 using UnityEngine.Pool;
-using Object = UnityEngine.Object;
 
 namespace Dre0Dru.ObjectExtensions
 {
+    //TODO HasComponent<> extensions
     public static class GameObjectExtensions
     {
         public static TComponent GetOrAddComponent<TComponent>(this GameObject gameObject)
@@ -52,6 +52,24 @@ namespace Dre0Dru.ObjectExtensions
             return gameObject.TryGetComponent<TComponent>(out component) ||
                    gameObject.TryGetComponentInChildren<TComponent>(out component, includeInactive) ||
                    gameObject.TryGetComponentInParent<TComponent>(out component, includeInactive);
+        }
+        
+        public static bool HasComponent<TComponent>(this GameObject gameObject)
+            where TComponent : Component
+        {
+            return gameObject.TryGetComponent<TComponent>(out _);
+        }
+        
+        public static bool HasComponentInParent<TComponent>(this GameObject gameObject, bool includeInactive = false)
+            where TComponent : Component
+        {
+            return gameObject.TryGetComponentInParent<TComponent>(out _, includeInactive);
+        }
+        
+        public static bool HasComponentInChildren<TComponent>(this GameObject gameObject, bool includeInactive = false)
+            where TComponent : Component
+        {
+            return gameObject.TryGetComponentInChildren<TComponent>(out _, includeInactive);
         }
 
         public static bool RemoveSingle<T>(this GameObject gameObject)
