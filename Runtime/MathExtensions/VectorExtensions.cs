@@ -40,7 +40,7 @@ namespace Dre0Dru.MathExtensions
             var xDir = Mathf.Sin(angle * Mathf.Deg2Rad);
             var zDir = Mathf.Cos(angle * Mathf.Deg2Rad);
 
-            return new Vector2(xDir, zDir);
+            return new Vector2(xDir, zDir).normalized;
         }
     }
 }

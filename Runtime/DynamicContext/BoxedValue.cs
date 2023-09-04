@@ -1,8 +1,9 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 namespace Dre0Dru.DynamicContext
 {
+    //TODO move to collections/values
     [Serializable]
     public class BoxedValue<TValue>
         where TValue : struct

@@ -1,4 +1,7 @@
-﻿namespace Dre0Dru.Values
+﻿using System;
+using System.Collections.Generic;
+
+namespace Dre0Dru.Values
 {
     public static class ValuesExtensions
     {
@@ -14,6 +17,12 @@
             }
 
             return false;
+        }
+        
+        public static bool IsValueChanged<T>(this ValueChangeBuffer<T> buffer)
+            where T : IEquatable<T>
+        {
+            return !EqualityComparer<T>.Default.Equals(buffer.PreviousValue, buffer.CurrentValue);
         }
     }
 }
