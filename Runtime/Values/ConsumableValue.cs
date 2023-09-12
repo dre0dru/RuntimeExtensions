@@ -3,15 +3,8 @@ using UnityEngine;
 
 namespace Dre0Dru.Values
 {
-    public interface IConsumableValue<T>
-    {
-        T Value { get; set; }
-        
-        bool IsConsumed { get; set; }
-    }
-    
     [Serializable]
-    public struct ConsumableValue<T> : IConsumableValue<T>
+    public struct ConsumableValue<T>
     {
         [SerializeField]
         private T _value;
@@ -22,7 +15,11 @@ namespace Dre0Dru.Values
         public T Value
         {
             readonly get => _value;
-            set => _value = value;
+            set
+            {
+                _value = value;
+                _isConsumed = false;
+            }
         }
 
         public bool IsConsumed
