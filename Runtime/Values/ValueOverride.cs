@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Dre0Dru.Values
 {
-    //TODO очередь оверрайдов? с IDisposable для релиза оверрайда?
+    //TODO overrides queue/stack? with IDisposable for overrides release?
     //TODO move to collections?
     [Serializable]
     public class ValueOverride<T>

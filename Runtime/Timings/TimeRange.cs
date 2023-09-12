@@ -31,18 +31,18 @@ namespace Dre0Dru.Timings
         {
             _range = minMax;
         }
-        
+
         public TimeRange(float min, float max) : this(new Vector2(min, max))
         {
         }
-        
+
         public TimeRange(double min, double max) : this(new Vector2((float)min, (float)max))
         {
         }
 
         public bool IsInside(float time)
         {
-            return time >= _range.x && time <= _range.y;
+            return time > _range.x && time <= _range.y;
         }
 
         public bool IsOutside(float time)
@@ -68,17 +68,17 @@ namespace Dre0Dru.Timings
         public static implicit operator TimeRange(Vector2 minMax)
         {
             return new TimeRange(minMax);
-        } 
-        
+        }
+
         public static implicit operator TimeRange((float min, float max) minMax)
         {
             return new TimeRange(minMax.min, minMax.max);
-        } 
-        
+        }
+
         public static implicit operator TimeRange((double min, double max) minMax)
         {
             return new TimeRange(minMax.min, minMax.max);
-        } 
+        }
     }
 
     [Serializable]
@@ -230,6 +230,8 @@ namespace Dre0Dru.Timings
             [SerializeField]
             private TData _default;
 
+            public TData Default => _default;
+
             public WithDefault(TimeRange<TData>[] ranges, TData @default) : base(ranges)
             {
                 _default = @default;
@@ -241,7 +243,7 @@ namespace Dre0Dru.Timings
                 {
                     return true;
                 }
-                
+
                 data = _default;
                 return false;
             }
@@ -252,12 +254,12 @@ namespace Dre0Dru.Timings
                 {
                     return true;
                 }
-                
+
                 data = _default;
                 return false;
             }
         }
-        
+
         [SerializeField]
         private TimeRange<TData>[] _ranges;
 
@@ -326,7 +328,7 @@ namespace Dre0Dru.Timings
         public virtual bool IsInside(float time, out TData data)
         {
             data = default;
-            
+
             foreach (var range in _ranges)
             {
                 if (range.IsInside(time, out data))
@@ -346,7 +348,7 @@ namespace Dre0Dru.Timings
         public bool HasEntered(float previousTime, float time, out TData data)
         {
             data = default;
-            
+
             foreach (var range in _ranges)
             {
                 if (range.HasEntered(previousTime, time, out data))
@@ -361,7 +363,7 @@ namespace Dre0Dru.Timings
         public bool HasExited(float previousTime, float time, out TData data)
         {
             data = default;
-            
+
             foreach (var range in _ranges)
             {
                 if (range.HasExited(previousTime, time, out data))
@@ -376,7 +378,7 @@ namespace Dre0Dru.Timings
         public float Evaluate(float time, out TData data)
         {
             data = default;
-            
+
             foreach (var range in _ranges)
             {
                 if (range.IsInside(time))

@@ -167,7 +167,7 @@ namespace Dre0Dru.Timings
                 _default = @default;
             }
         }
-        
+
         [SerializeField]
         private TimePoint<TData>[] _points;
 
@@ -210,7 +210,7 @@ namespace Dre0Dru.Timings
         public bool IsBefore(float time, out TData data)
         {
             data = default;
-            
+
             foreach (var point in _points)
             {
                 if (point.IsBefore(time, out data))
@@ -230,7 +230,7 @@ namespace Dre0Dru.Timings
         public bool IsTriggered(float previousTime, float time, out TData data)
         {
             data = default;
-            
+
             foreach (var point in _points)
             {
                 if (point.IsTriggered(previousTime, time, out data))
@@ -242,5 +242,4 @@ namespace Dre0Dru.Timings
             return false;
         }
     }
-
 }

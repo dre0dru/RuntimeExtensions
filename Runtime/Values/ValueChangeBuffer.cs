@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace Dre0Dru.Values
 {
-    //TODO вынести в package
     [Serializable]
     public class ValueChangeBuffer<T>
     {
