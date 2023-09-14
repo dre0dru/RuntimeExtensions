@@ -41,7 +41,10 @@ namespace Dre0Dru.Values
 
         public static implicit operator ConsumableValue<T>(T value)
         {
-            return new ConsumableValue<T>();
+            return new ConsumableValue<T>()
+            {
+                _value = value
+            };
         }
     }
 }
