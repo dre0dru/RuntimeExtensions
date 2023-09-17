@@ -58,5 +58,15 @@ namespace Dre0Dru.MathExtensions
 
             return new Vector2(xDir, zDir).normalized;
         }
+
+        public static Quaternion ToQuaternion(this Vector3 vector3)
+        {
+            return Quaternion.LookRotation(vector3);
+        }
+
+        public static Quaternion ToQuaternion(this Vector3 vector3, Vector3 up)
+        {
+            return Quaternion.LookRotation(vector3, up);
+        }
     }
 }
