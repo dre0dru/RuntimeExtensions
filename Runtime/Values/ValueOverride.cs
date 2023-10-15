@@ -8,6 +8,8 @@ namespace Dre0Dru.Values
     [Serializable]
     public class ValueOverride<T>
     {
+        public event Action<T> ValueChanged; 
+        
         [SerializeField]
         private T _value;
 
@@ -23,7 +25,15 @@ namespace Dre0Dru.Values
         public T DefaultValue
         {
             get => _value;
-            set => _value = value;
+            set
+            {
+                _value = value;
+
+                if (!HasOverride)
+                {
+                    ValueChanged?.Invoke(_value);
+                }
+            }
         }
 
         public T OverrideValue
@@ -33,6 +43,8 @@ namespace Dre0Dru.Values
             {
                 _override = value;
                 _hasOverride = true;
+                
+                ValueChanged?.Invoke(_override);
             }
         }
 
@@ -45,6 +57,7 @@ namespace Dre0Dru.Values
         {
             _override = default;
             _hasOverride = false;
+            ValueChanged?.Invoke(_value);
         }
 
         public static implicit operator T(ValueOverride<T> valueOverride)

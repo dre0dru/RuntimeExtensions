@@ -19,7 +19,7 @@ namespace Dre0Dru.Values
             return false;
         }
 
-        public static bool HasValueChanged<T>(this ValueChangeBuffer<T> buffer)
+        public static bool HasValueChanged<T>(this ValueChange<T> buffer)
             where T : IEquatable<T>
         {
             return !EqualityComparer<T>.Default.Equals(buffer.PreviousValue, buffer.CurrentValue);
