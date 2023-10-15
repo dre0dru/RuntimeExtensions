@@ -12,7 +12,8 @@
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [
-        "SER_REF_SELECTOR_SUPPORT"
+        "SER_REF_SELECTOR_SUPPORT",
+        "DOTWEEN_ENABLED"
     ],
     "versionDefines": [
         {
