@@ -28,6 +28,11 @@ namespace Dre0Dru.Values
             set => _isConsumed = value;
         }
 
+        public ConsumableValue() : this(default)
+        {
+            
+        }
+
         public ConsumableValue(T value)
         {
             _value = value;
