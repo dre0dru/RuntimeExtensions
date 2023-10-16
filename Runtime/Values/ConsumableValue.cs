@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Dre0Dru.Values
 {
     [Serializable]
-    public struct ConsumableValue<T>
+    public class ConsumableValue<T>
     {
         [SerializeField]
         private T _value;
@@ -14,7 +14,7 @@ namespace Dre0Dru.Values
 
         public T Value
         {
-            readonly get => _value;
+            get => _value;
             set
             {
                 _value = value;
@@ -24,27 +24,18 @@ namespace Dre0Dru.Values
 
         public bool IsConsumed
         {
-            readonly get => _isConsumed;
+            get => _isConsumed;
             set => _isConsumed = value;
         }
 
-        public ConsumableValue(T value) : this()
+        public ConsumableValue(T value)
         {
-            Value = value;
-            _isConsumed = false;
+            _value = value;
         }
 
         public static implicit operator T(ConsumableValue<T> consumableValue)
         {
             return consumableValue.Value;
-        }
-
-        public static implicit operator ConsumableValue<T>(T value)
-        {
-            return new ConsumableValue<T>()
-            {
-                _value = value
-            };
         }
     }
 }
