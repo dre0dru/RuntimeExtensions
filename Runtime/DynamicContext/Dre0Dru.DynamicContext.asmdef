@@ -3,7 +3,8 @@
     "rootNamespace": "Dre0Dru.DynamicContext",
     "references": [
         "GUID:49b49c76ee64f6b41bf28ef951cb0e50",
-        "GUID:858f01292afdc66489a4648c01d9ca1e"
+        "GUID:858f01292afdc66489a4648c01d9ca1e",
+        "GUID:b5f9a495fd890eb4795fa4a4b3dc6cba"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

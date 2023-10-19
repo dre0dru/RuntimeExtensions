@@ -1,4 +1,6 @@
-﻿namespace Dre0Dru.DynamicContext
+﻿using Dre0Dru.Values;
+
+namespace Dre0Dru.DynamicContext
 {
     public static class DynamicContextExtensions
     {
