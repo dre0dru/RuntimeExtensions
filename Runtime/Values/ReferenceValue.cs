@@ -4,8 +4,7 @@ using UnityEngine;
 namespace Dre0Dru.Values
 {
     [Serializable]
-    public class BoxedValue<TValue>
-        where TValue : struct
+    public class ReferenceValue<TValue>
     {
         [SerializeField]
         private TValue _value;
@@ -16,19 +15,19 @@ namespace Dre0Dru.Values
             set => _value = value;
         }
 
-        public BoxedValue() : this(default)
+        public ReferenceValue() : this(default)
         {
             
         }
         
-        public BoxedValue(TValue value)
+        public ReferenceValue(TValue value)
         {
             _value = value;
         }
 
-        public static implicit operator TValue(BoxedValue<TValue> boxedValue)
+        public static implicit operator TValue(ReferenceValue<TValue> referenceValue)
         {
-            return boxedValue._value;
+            return referenceValue._value;
         }
     }
 }
