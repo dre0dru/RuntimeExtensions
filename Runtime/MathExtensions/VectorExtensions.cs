@@ -4,7 +4,7 @@ namespace Dre0Dru.MathExtensions
 {
     public static class VectorExtensions
     {
-        public static Vector3 Flatten(this Vector3 vector3)
+        public static Vector3 FlattenY(this Vector3 vector3)
         {
             vector3.y = 0;
 
