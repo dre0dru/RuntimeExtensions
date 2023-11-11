@@ -12,6 +12,11 @@ namespace Dre0Dru.Timings
 
     public interface ITimePoint<TData> : ITimePoint
     {
+        public interface IWithDefault<out TDefault>
+        {
+            TDefault Default { get; }
+        }
+
         bool IsBefore(float time, out TData data);
         bool IsPast(float time, out TData data);
         bool IsTriggered(float previousTime, float time, out TData data);
@@ -155,7 +160,7 @@ namespace Dre0Dru.Timings
     public class TimePointComposite<TData> : ITimePoint<TData>
     {
         [Serializable]
-        public class WithDefault : TimePointComposite<TData>
+        public class WithDefault : TimePointComposite<TData>, ITimePoint<TData>.IWithDefault<TData>
         {
             [SerializeField]
             private TData _default;

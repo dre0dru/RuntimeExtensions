@@ -14,6 +14,11 @@ namespace Dre0Dru.Timings
 
     public interface ITimeRange<TData> : ITimeRange
     {
+        public interface IWithDefault<out TDefault>
+        {
+            TDefault Default { get; }
+        }
+
         bool IsInside(float time, out TData data);
         bool IsOutside(float time, out TData data);
         bool HasEntered(float previousTime, float time, out TData data);
@@ -225,7 +230,7 @@ namespace Dre0Dru.Timings
     public class TimeRangeComposite<TData> : ITimeRange<TData>
     {
         [Serializable]
-        public class WithDefault : TimeRangeComposite<TData>
+        public class WithDefault : TimeRangeComposite<TData>, ITimePoint<TData>.IWithDefault<TData>
         {
             [SerializeField]
             private TData _default;
