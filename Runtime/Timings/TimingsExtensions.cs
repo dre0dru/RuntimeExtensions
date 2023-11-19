@@ -1,5 +1,6 @@
 ﻿namespace Dre0Dru.Timings
 {
+    //TODO Point/Range builders
     public static class TimingsExtensions
     {
         public static bool HasChanged(this ITimeRange timeRange, float previousTime, float time)

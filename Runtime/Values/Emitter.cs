@@ -11,13 +11,25 @@ namespace Dre0Dru.Values
         {
             OnEvent?.Invoke();
         }
-        
+
         public void Dispose()
         {
             OnEvent = null;
         }
+
+        public static Emitter operator +(Emitter it, Action action)
+        {
+            it.OnEvent += action;
+            return it;
+        }
+
+        public static Emitter operator -(Emitter it, Action action)
+        {
+            it.OnEvent -= action;
+            return it;
+        }
     }
-    
+
     [Serializable]
     public sealed class Emitter<T> : IDisposable
     {
@@ -27,10 +39,22 @@ namespace Dre0Dru.Values
         {
             OnEvent?.Invoke(value);
         }
-        
+
         public void Dispose()
         {
             OnEvent = null;
+        }
+
+        public static Emitter<T> operator +(Emitter<T> it, Action<T> action)
+        {
+            it.OnEvent += action;
+            return it;
+        }
+
+        public static Emitter<T> operator -(Emitter<T> it, Action<T> action)
+        {
+            it.OnEvent -= action;
+            return it;
         }
     }
 }
