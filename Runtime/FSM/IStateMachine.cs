@@ -1,6 +1,7 @@
 namespace Dre0Dru.FSM
 {
     //TODO as composition of different interfaces?
+    //TODO StateTransitions for data driven logic?
     public interface IStateMachine<TState>
     {
         TState CurrentState { get; }
