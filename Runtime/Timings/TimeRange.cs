@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Dre0Dru.Timings
@@ -87,7 +89,7 @@ namespace Dre0Dru.Timings
     }
 
     [Serializable]
-    public class TimeRangeComposite : ITimeRange
+    public class TimeRangeComposite : ITimeRange, IEnumerable<TimeRange>
     {
         [SerializeField]
         private TimeRange[] _ranges;
@@ -152,6 +154,16 @@ namespace Dre0Dru.Timings
             }
 
             return 0;
+        }
+
+        public IEnumerator<TimeRange> GetEnumerator()
+        {
+            return ((IEnumerable<TimeRange>)_ranges).GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 
@@ -227,7 +239,7 @@ namespace Dre0Dru.Timings
     }
 
     [Serializable]
-    public class TimeRangeComposite<TData> : ITimeRange<TData>
+    public class TimeRangeComposite<TData> : ITimeRange<TData>, IEnumerable<TimeRange<TData>>
     {
         [Serializable]
         public class WithDefault : TimeRangeComposite<TData>, ITimePoint<TData>.IWithDefault<TData>
@@ -393,6 +405,16 @@ namespace Dre0Dru.Timings
             }
 
             return 0;
+        }
+
+        public IEnumerator<TimeRange<TData>> GetEnumerator()
+        {
+            return ((IEnumerable<TimeRange<TData>>)_ranges).GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }

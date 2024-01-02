@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Dre0Dru.Timings
@@ -27,6 +29,8 @@ namespace Dre0Dru.Timings
     {
         [SerializeField]
         private float _time;
+
+        public float Time => _time;
 
         public TimePoint(float time)
         {
@@ -65,7 +69,7 @@ namespace Dre0Dru.Timings
     }
 
     [Serializable]
-    public class TimePointComposite : ITimePoint
+    public class TimePointComposite : ITimePoint, IEnumerable<TimePoint>
     {
         [SerializeField]
         private TimePoint[] _points;
@@ -105,6 +109,16 @@ namespace Dre0Dru.Timings
 
             return false;
         }
+
+        public IEnumerator<TimePoint> GetEnumerator()
+        {
+            return ((IEnumerable<TimePoint>)_points).GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
     }
 
     [Serializable]
@@ -115,6 +129,10 @@ namespace Dre0Dru.Timings
 
         [SerializeField]
         private TData _data;
+
+        public float Time => _timePoint.Time;
+
+        public TData Data => _data;
 
         public TimePoint(TimePoint timePoint, TData data)
         {
@@ -157,7 +175,7 @@ namespace Dre0Dru.Timings
     }
 
     [Serializable]
-    public class TimePointComposite<TData> : ITimePoint<TData>
+    public class TimePointComposite<TData> : ITimePoint<TData>, IEnumerable<TimePoint<TData>>
     {
         [Serializable]
         public class WithDefault : TimePointComposite<TData>, ITimePoint<TData>.IWithDefault<TData>
@@ -245,6 +263,16 @@ namespace Dre0Dru.Timings
             }
 
             return false;
+        }
+
+        public IEnumerator<TimePoint<TData>> GetEnumerator()
+        {
+            return ((IEnumerable<TimePoint<TData>>)_points).GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }
