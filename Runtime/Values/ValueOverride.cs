@@ -8,13 +8,14 @@ namespace Dre0Dru.Values
     [Serializable]
     public class ValueOverride<T>
     {
-        public event Action<T> ValueChanged; 
-        
+        public event Action<T> ValueChanged;
+
         [SerializeField]
         private T _value;
 
         [SerializeField]
         private T _override;
+
         [SerializeField]
         private bool _hasOverride;
 
@@ -43,7 +44,7 @@ namespace Dre0Dru.Values
             {
                 _override = value;
                 _hasOverride = true;
-                
+
                 ValueChanged?.Invoke(_override);
             }
         }

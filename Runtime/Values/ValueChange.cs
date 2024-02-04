@@ -7,7 +7,7 @@ namespace Dre0Dru.Values
     public class ValueChange<T>
     {
         public event Action<T, T> ValueChanged;
-        
+
         [SerializeField]
         private T _currentValue;
 
@@ -21,7 +21,7 @@ namespace Dre0Dru.Values
             {
                 _previousValue = _currentValue;
                 _currentValue = value;
-                
+
                 ValueChanged?.Invoke(_currentValue, _previousValue);
             }
         }
