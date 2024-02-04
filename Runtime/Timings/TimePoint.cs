@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Dre0Dru.Timings
 {
+    //TODO extrapolation options
     public interface ITimePoint
     {
         bool IsBefore(float time);
