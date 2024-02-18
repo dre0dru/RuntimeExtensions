@@ -45,17 +45,18 @@ namespace Dre0Dru.Timings
 
         public bool IsBefore(float time)
         {
-            return time < _time;
+            return time <= _time;
         }
 
         public bool IsPast(float time)
         {
-            return !IsBefore(time);
+            return time >= _time;
         }
 
         public bool IsTriggered(float previousTime, float time)
         {
-            return IsPast(time) && IsBefore(previousTime);
+            return previousTime != time && 
+                   IsPast(time) && IsBefore(previousTime);
         }
 
         public static implicit operator TimePoint(float time)
