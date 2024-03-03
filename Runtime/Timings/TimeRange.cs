@@ -49,17 +49,18 @@ namespace Dre0Dru.Timings
 
         public bool IsInside(float time)
         {
-            return time > _range.x && time <= _range.y;
+            return time >= _range.x && time <= _range.y;
         }
 
         public bool IsOutside(float time)
         {
-            return !IsInside(time);
+            return time <= _range.x || time >= _range.y;
         }
 
         public bool HasEntered(float previousTime, float time)
         {
-            return IsOutside(previousTime) && IsInside(time);
+            return previousTime != time &&
+                   IsOutside(previousTime) && IsInside(time);
         }
 
         public bool HasExited(float previousTime, float time)

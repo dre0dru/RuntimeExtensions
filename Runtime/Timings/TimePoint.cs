@@ -141,6 +141,10 @@ namespace Dre0Dru.Timings
             _timePoint = timePoint;
             _data = data;
         }
+        
+        public TimePoint(float timePoint, TData data) : this(new TimePoint(timePoint), data)
+        {
+        }
 
         public bool IsBefore(float time)
         {
