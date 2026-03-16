@@ -59,6 +59,11 @@ namespace Dre0Dru.Timings
                    IsPast(time) && IsBefore(previousTime);
         }
 
+        public override string ToString()
+        {
+            return $"Time: {_time}";
+        }
+
         public static implicit operator TimePoint(float time)
         {
             return new TimePoint(time);
@@ -177,6 +182,11 @@ namespace Dre0Dru.Timings
         {
             data = _data;
             return IsTriggered(previousTime, time);
+        }
+
+        public override string ToString()
+        {
+            return $"{_timePoint}, Data: {_data}";
         }
     }
 

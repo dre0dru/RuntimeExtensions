@@ -162,7 +162,7 @@ namespace Dre0Dru.ObjectExtensions
 
         public static void SetHideFlagsRecursive(this GameObject gameObject, HideFlags hideFlags)
         {
-            gameObject.hideFlags = HideFlags.DontSaveInBuild | HideFlags.DontSaveInEditor;
+            gameObject.hideFlags = hideFlags;
 
             foreach (Transform child in gameObject.transform)
             {
