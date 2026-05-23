@@ -14,5 +14,6 @@
   "documentationUrl": "https://github.com/dre0dru",
   "changelogUrl": "https://github.com/dre0dru",
   "licensesUrl": "https://github.com/dre0dru",
-  "type": "library"
+  "type": "library",
+  "testables": ["com.dre0dru.runtimeextensions"]
 }
